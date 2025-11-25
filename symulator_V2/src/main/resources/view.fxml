@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="symulator.SymulatorController"
+            prefHeight="600.0" prefWidth="900.0">
+
+    <top>
+        <VBox>
+            <MenuBar>
+                <Menu text="File"/>
+                <Menu text="Edit"/>
+            </MenuBar>
+            <ToolBar>
+                <Label text="Samochód: "/>
+                <ComboBox fx:id="carComboBox" prefWidth="150.0" onAction="#onCarSelect"/>
+                <Button text="Dodaj nowy"/>
+                <Button text="Usuń"/>
+            </ToolBar>
+        </VBox>
+    </top>
+
+    <left>
+        <ScrollPane fitToWidth="true">
+            <VBox spacing="10" prefWidth="250">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+
+                <TitledPane text="Samochód" collapsible="true">
+                    <VBox spacing="5">
+                        <Label text="Model:"/><TextField fx:id="modelField"/>
+                        <Label text="Nr rej:"/><TextField fx:id="nrRejestracyjnyField"/>
+                        <Label text="Stan:"/><TextField fx:id="stanSilnikaField" editable="false"/>
+                        <HBox spacing="5">
+                            <Button text="Włącz" onAction="#onWlaczClick"/>
+                            <Button text="Wyłącz" onAction="#onWylaczClick"/>
+                        </HBox>
+                    </VBox>
+                </TitledPane>
+
+                <TitledPane text="Skrzynia Biegów" collapsible="true">
+                    <VBox spacing="5">
+                        <Label text="Aktualny bieg:"/><TextField fx:id="biegField" editable="false"/>
+                        <HBox spacing="5">
+                            <Button text="Bieg +" onAction="#onZwiekszBiegClick"/>
+                            <Button text="Bieg -" onAction="#onZmniejszBiegClick"/>
+                        </HBox>
+                    </VBox>
+                </TitledPane>
+
+                <TitledPane text="Silnik" collapsible="true">
+                    <VBox spacing="5">
+                        <Label text="Obroty:"/><TextField fx:id="obrotyField" editable="false"/>
+                        <HBox spacing="5">
+                            <Button text="Gaz" onAction="#onDodajGazuClick"/>
+                            <Button text="Hamuj" onAction="#onUjmijGazuClick"/>
+                        </HBox>
+                    </VBox>
+                </TitledPane>
+
+                <TitledPane text="Sprzęgło" collapsible="true">
+                    <VBox spacing="5">
+                        <Label text="Stan:"/><TextField fx:id="sprzegloField" editable="false"/>
+                        <HBox spacing="5">
+                            <Button text="Wciśnij" onAction="#onWcisnijSprzegloClick"/>
+                            <Button text="Zwolnij" onAction="#onZwolnijSprzegloClick"/>
+                        </HBox>
+                    </VBox>
+                </TitledPane>
+            </VBox>
+        </ScrollPane>
+    </left>
+
+    <center>
+        <StackPane style="-fx-background-color: lightgreen;">
+            <ImageView fx:id="carImage" fitWidth="150" preserveRatio="true">
+            </ImageView>
+        </StackPane>
+    </center>
+
+</BorderPane>
