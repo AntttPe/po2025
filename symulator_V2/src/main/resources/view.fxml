@@ -19,7 +19,7 @@
             <ToolBar>
                 <Label text="Samochód: "/>
                 <ComboBox fx:id="carComboBox" prefWidth="150.0" onAction="#onCarSelect"/>
-                <Button text="Dodaj nowy"/>
+                <Button text="Dodaj nowy" onAction="#onDodajNowyClick"/>
                 <Button text="Usuń"/>
             </ToolBar>
         </VBox>
@@ -34,8 +34,8 @@
 
                 <TitledPane text="Samochód" collapsible="true">
                     <VBox spacing="5">
-                        <Label text="Model:"/><TextField fx:id="modelField"/>
-                        <Label text="Nr rej:"/><TextField fx:id="nrRejestracyjnyField"/>
+                        <Label text="Model:"/><TextField fx:id="modelField" editable="false"/>
+                        <Label text="Nr rej:"/><TextField fx:id="nrRejestracyjnyField" editable="false"/>
                         <Label text="Stan:"/><TextField fx:id="stanSilnikaField" editable="false"/>
                         <HBox spacing="5">
                             <Button text="Włącz" onAction="#onWlaczClick"/>

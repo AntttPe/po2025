@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="symulator.DodajSamochodController"
+      prefWidth="300" prefHeight="250">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Model:"/>
+    <TextField fx:id="modelTextField"/>
+
+    <Label text="Numer Rejestracyjny:"/>
+    <TextField fx:id="registrationTextField"/>
+
+    <Label text="Waga (kg):"/>
+    <TextField fx:id="weightTextField"/>
+
+    <Label text="Max Obroty:"/>
+    <TextField fx:id="speedTextField"/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button fx:id="cancelButton" text="Anuluj" onAction="#onCancelButton"/>
+        <Button fx:id="confirmButton" text="Zatwierdź" onAction="#onConfirmButton"/>
+    </HBox>
+
+</VBox>
