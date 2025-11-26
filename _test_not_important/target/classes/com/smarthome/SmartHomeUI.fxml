@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.DropShadow?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            styleClass="root" stylesheets="@styles.css">
+
+    <!-- Top Bar -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" styleClass="top-bar">
+            <padding>
+                <Insets top="20" right="30" bottom="20" left="30"/>
+            </padding>
+
+            <Label text="🏠 Smart Home" styleClass="app-title">
+                <font>
+                    <Font name="System Bold" size="24"/>
+                </font>
+            </Label>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label text="Kraków, 22°C" styleClass="weather-info">
+                <font>
+                    <Font size="14"/>
+                </font>
+            </Label>
+
+            <Button text="⚙️" styleClass="icon-button"/>
+            <Button text="👤" styleClass="icon-button"/>
+        </HBox>
+    </top>
+
+    <!-- Main Content -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="main-scroll">
+            <VBox spacing="30">
+                <padding>
+                    <Insets top="30" right="30" bottom="30" left="30"/>
+                </padding>
+
+                <!-- Quick Controls Section -->
+                <VBox spacing="15">
+                    <Label text="Szybkie Sterowanie" styleClass="section-title">
+                        <font>
+                            <Font name="System Bold" size="18"/>
+                        </font>
+                    </Label>
+
+                    <GridPane hgap="20" vgap="20">
+                        <!-- Row 1 -->
+                        <VBox styleClass="control-card" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <padding>
+                                <Insets top="25" right="25" bottom="25" left="25"/>
+                            </padding>
+                            <Label text="💡" styleClass="card-icon">
+                                <font><Font size="32"/></font>
+                            </Label>
+                            <Label text="Oświetlenie" styleClass="card-title">
+                                <font><Font name="System Bold" size="16"/></font>
+                            </Label>
+                            <Label text="12 urządzeń aktywnych" styleClass="card-subtitle">
+                                <font><Font size="12"/></font>
+                            </Label>
+                            <Region VBox.vgrow="ALWAYS"/>
+                            <ToggleButton text="Włączone" selected="true" styleClass="toggle-switch"/>
+                        </VBox>
+
+                        <VBox styleClass="control-card" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <padding>
+                                <Insets top="25" right="25" bottom="25" left="25"/>
+                            </padding>
+                            <Label text="🌡️" styleClass="card-icon">
+                                <font><Font size="32"/></font>
+                            </Label>
+                            <Label text="Klimatyzacja" styleClass="card-title">
+                                <font><Font name="System Bold" size="16"/></font>
+                            </Label>
+                            <Label text="21°C • Tryb Auto" styleClass="card-subtitle">
+                                <font><Font size="12"/></font>
+                            </Label>
+                            <Region VBox.vgrow="ALWAYS"/>
+                            <Slider value="21" min="16" max="30" showTickLabels="false" showTickMarks="false"/>
+                        </VBox>
+
+                        <VBox styleClass="control-card" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                            <padding>
+                                <Insets top="25" right="25" bottom="25" left="25"/>
+                            </padding>
+                            <Label text="🔒" styleClass="card-icon">
+                                <font><Font size="32"/></font>
+                            </Label>
+                            <Label text="Zabezpieczenia" styleClass="card-title">
+                                <font><Font name="System Bold" size="16"/></font>
+                            </Label>
+                            <Label text="Wszystko zabezpieczone" styleClass="card-subtitle-success">
+                                <font><Font size="12"/></font>
+                            </Label>
+                            <Region VBox.vgrow="ALWAYS"/>
+                            <Button text="Zbrojne" styleClass="status-button-active"/>
+                        </VBox>
+
+                        <!-- Row 2 -->
+                        <VBox styleClass="control-card" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <padding>
+                                <Insets top="25" right="25" bottom="25" left="25"/>
+                            </padding>
+                            <Label text="🎵" styleClass="card-icon">
+                                <font><Font size="32"/></font>
+                            </Label>
+                            <Label text="Audio" styleClass="card-title">
+                                <font><Font name="System Bold" size="16"/></font>
+                            </Label>
+                            <Label text="Salon • 65%" styleClass="card-subtitle">
+                                <font><Font size="12"/></font>
+                            </Label>
+                            <Region VBox.vgrow="ALWAYS"/>
+                            <HBox spacing="10" alignment="CENTER">
+                                <Button text="⏮" styleClass="media-button"/>
+                                <Button text="⏸" styleClass="media-button"/>
+                                <Button text="⏭" styleClass="media-button"/>
+                            </HBox>
+                        </VBox>
+
+                        <VBox styleClass="control-card" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <padding>
+                                <Insets top="25" right="25" bottom="25" left="25"/>
+                            </padding>
+                            <Label text="📹" styleClass="card-icon">
+                                <font><Font size="32"/></font>
+                            </Label>
+                            <Label text="Kamery" styleClass="card-title">
+                                <font><Font name="System Bold" size="16"/></font>
+                            </Label>
+                            <Label text="5 kamer online" styleClass="card-subtitle">
+                                <font><Font size="12"/></font>
+                            </Label>
+                            <Region VBox.vgrow="ALWAYS"/>
+                            <Button text="Podgląd na żywo" styleClass="action-button"/>
+                        </VBox>
+
+                        <VBox styleClass="control-card" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                            <padding>
+                                <Insets top="25" right="25" bottom="25" left="25"/>
+                            </padding>
+                            <Label text="⚡" styleClass="card-icon">
+                                <font><Font size="32"/></font>
+                            </Label>
+                            <Label text="Energia" styleClass="card-title">
+                                <font><Font name="System Bold" size="16"/></font>
+                            </Label>
+                            <Label text="2.4 kWh dzisiaj" styleClass="card-subtitle">
+                                <font><Font size="12"/></font>
+                            </Label>
+                            <Region VBox.vgrow="ALWAYS"/>
+                            <ProgressBar progress="0.45" prefWidth="150"/>
+                        </VBox>
+                    </GridPane>
+                </VBox>
+
+                <!-- Rooms Section -->
+                <VBox spacing="15">
+                    <Label text="Pokoje" styleClass="section-title">
+                        <font>
+                            <Font name="System Bold" size="18"/>
+                        </font>
+                    </Label>
+
+                    <HBox spacing="20">
+                        <VBox styleClass="room-card">
+                            <padding>
+                                <Insets top="20" right="20" bottom="20" left="20"/>
+                            </padding>
+                            <Label text="Salon" styleClass="room-title">
+                                <font><Font name="System Bold" size="14"/></font>
+                            </Label>
+                            <Label text="8 urządzeń" styleClass="room-subtitle">
+                                <font><Font size="11"/></font>
+                            </Label>
+                            <Region VBox.vgrow="ALWAYS"/>
+                            <Label text="22°C • Światło włączone" styleClass="room-status">
+                                <font><Font size="11"/></font>
+                            </Label>
+                        </VBox>
+
+                        <VBox styleClass="room-card">
+                            <padding>
+                                <Insets top="20" right="20" bottom="20" left="20"/>
+                            </padding>
+                            <Label text="Sypialnia" styleClass="room-title">
+                                <font><Font name="System Bold" size="14"/></font>
+                            </Label>
+                            <Label text="6 urządzeń" styleClass="room-subtitle">
+                                <font><Font size="11"/></font>
+                            </Label>
+                            <Region VBox.vgrow="ALWAYS"/>
+                            <Label text="20°C • Tryb nocny" styleClass="room-status">
+                                <font><Font size="11"/></font>
+                            </Label>
+                        </VBox>
+
+                        <VBox styleClass="room-card">
+                            <padding>
+                                <Insets top="20" right="20" bottom="20" left="20"/>
+                            </padding>
+                            <Label text="Kuchnia" styleClass="room-title">
+                                <font><Font name="System Bold" size="14"/></font>
+                            </Label>
+                            <Label text="5 urządzeń" styleClass="room-subtitle">
+                                <font><Font size="11"/></font>
+                            </Label>
+                            <Region VBox.vgrow="ALWAYS"/>
+                            <Label text="21°C • Wszystko wyłączone" styleClass="room-status">
+                                <font><Font size="11"/></font>
+                            </Label>
+                        </VBox>
+
+                        <VBox styleClass="room-card">
+                            <padding>
+                                <Insets top="20" right="20" bottom="20" left="20"/>
+                            </padding>
+                            <Label text="Łazienka" styleClass="room-title">
+                                <font><Font name="System Bold" size="14"/></font>
+                            </Label>
+                            <Label text="4 urządzenia" styleClass="room-subtitle">
+                                <font><Font size="11"/></font>
+                            </Label>
+                            <Region VBox.vgrow="ALWAYS"/>
+                            <Label text="23°C • Ogrzewanie podłogowe" styleClass="room-status">
+                                <font><Font size="11"/></font>
+                            </Label>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Scenes Section -->
+                <VBox spacing="15">
+                    <Label text="Sceny" styleClass="section-title">
+                        <font>
+                            <Font name="System Bold" size="18"/>
+                        </font>
+                    </Label>
+
+                    <HBox spacing="15">
+                        <Button text="🌅 Dzień dobry" styleClass="scene-button"/>
+                        <Button text="🏠 W domu" styleClass="scene-button"/>
+                        <Button text="🚪 Wychodzę" styleClass="scene-button"/>
+                        <Button text="🌙 Dobranoc" styleClass="scene-button"/>
+                        <Button text="🎬 Kino" styleClass="scene-button"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

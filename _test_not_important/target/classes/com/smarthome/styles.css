@@ -1,0 +1,205 @@
+/* styles.css */
+
+.root {
+    -fx-background-color: linear-gradient(to bottom, #0f0f1e, #1a1a2e);
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.top-bar {
+    -fx-background-color: rgba(26, 26, 46, 0.8);
+    -fx-background-radius: 0 0 20 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 15, 0, 0, 5);
+}
+
+.app-title {
+    -fx-text-fill: #ffffff;
+}
+
+.weather-info {
+    -fx-text-fill: #b8b8d1;
+}
+
+.icon-button {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 50;
+    -fx-min-width: 45;
+    -fx-min-height: 45;
+    -fx-font-size: 18;
+    -fx-cursor: hand;
+}
+
+.icon-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+}
+
+.main-scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.main-scroll .viewport {
+    -fx-background-color: transparent;
+}
+
+.section-title {
+    -fx-text-fill: #ffffff;
+}
+
+.control-card {
+    -fx-background-color: linear-gradient(to bottom right, rgba(42, 42, 71, 0.8), rgba(30, 30, 50, 0.9));
+    -fx-background-radius: 20;
+    -fx-min-width: 220;
+    -fx-min-height: 200;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 20, 0, 0, 8);
+    -fx-cursor: hand;
+}
+
+.control-card:hover {
+    -fx-background-color: linear-gradient(to bottom right, rgba(52, 52, 91, 0.9), rgba(40, 40, 70, 1));
+    -fx-effect: dropshadow(gaussian, rgba(100, 100, 255, 0.3), 25, 0, 0, 10);
+}
+
+.card-icon {
+    -fx-text-fill: #ffffff;
+}
+
+.card-title {
+    -fx-text-fill: #ffffff;
+    -fx-padding: 10 0 5 0;
+}
+
+.card-subtitle {
+    -fx-text-fill: #9999bb;
+}
+
+.card-subtitle-success {
+    -fx-text-fill: #4ade80;
+}
+
+.toggle-switch {
+    -fx-background-color: #4ade80;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 20;
+    -fx-padding: 8 20;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.toggle-switch:selected {
+    -fx-background-color: #22c55e;
+}
+
+.slider {
+    -fx-pref-width: 150;
+}
+
+.slider .track {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+}
+
+.slider .thumb {
+    -fx-background-color: #6366f1;
+}
+
+.status-button-active {
+    -fx-background-color: #4ade80;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 15;
+    -fx-padding: 8 20;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.media-button {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 50;
+    -fx-min-width: 35;
+    -fx-min-height: 35;
+    -fx-cursor: hand;
+}
+
+.media-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.25);
+}
+
+.action-button {
+    -fx-background-color: #6366f1;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 15;
+    -fx-padding: 8 15;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.action-button:hover {
+    -fx-background-color: #4f46e5;
+}
+
+.progress-bar {
+    -fx-accent: #4ade80;
+}
+
+.progress-bar .track {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-background-radius: 10;
+}
+
+.progress-bar .bar {
+    -fx-background-color: #4ade80;
+    -fx-background-radius: 10;
+}
+
+.room-card {
+    -fx-background-color: rgba(42, 42, 71, 0.6);
+    -fx-background-radius: 15;
+    -fx-min-width: 180;
+    -fx-min-height: 140;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 12, 0, 0, 5);
+    -fx-cursor: hand;
+}
+
+.room-card:hover {
+    -fx-background-color: rgba(52, 52, 91, 0.8);
+}
+
+.room-title {
+    -fx-text-fill: #ffffff;
+}
+
+.room-subtitle {
+    -fx-text-fill: #9999bb;
+    -fx-padding: 5 0 0 0;
+}
+
+.room-status {
+    -fx-text-fill: #b8b8d1;
+}
+
+.scene-button {
+    -fx-background-color: rgba(99, 102, 241, 0.3);
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 25;
+    -fx-padding: 15 30;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-border-color: rgba(99, 102, 241, 0.5);
+    -fx-border-radius: 25;
+    -fx-border-width: 2;
+}
+
+.scene-button:hover {
+    -fx-background-color: rgba(99, 102, 241, 0.5);
+    -fx-border-color: rgba(99, 102, 241, 0.8);
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+    -fx-background-radius: 5;
+}

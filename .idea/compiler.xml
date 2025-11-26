@@ -6,9 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="_test_not_important" />
         <module name="symulator" />
         <module name="symulator_V2" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="_tests_not_important" target="25" />
+    </bytecodeTargetLevel>
   </component>
 </project>

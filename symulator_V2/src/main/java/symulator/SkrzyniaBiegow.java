@@ -3,7 +3,7 @@ package symulator;
 public class SkrzyniaBiegow extends Komponent {
     private int aktualnyBieg;
     private int iloscBiegow;
-    private Sprzeglo sprzeglo; // Zależność z diagramu [cite: 57]
+    private Sprzeglo sprzeglo; // Zależność z diagramu
 
     public SkrzyniaBiegow(String nazwa, double waga, double cena, int iloscBiegow, Sprzeglo sprzeglo) {
         super(nazwa, waga, cena);
@@ -27,6 +27,7 @@ public class SkrzyniaBiegow extends Komponent {
         if (sprzeglo.czyWcisniete()) {
             if (aktualnyBieg > 0) {
                 aktualnyBieg--;
+
                 System.out.println("Bieg: " + aktualnyBieg);
             }
         } else {

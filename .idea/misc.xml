@@ -6,7 +6,14 @@
       <list>
         <option value="$PROJECT_DIR$/symulator/pom.xml" />
         <option value="$PROJECT_DIR$/symulator_V2/pom.xml" />
+        <option value="$PROJECT_DIR$/_tests_not_important/pom.xml" />
+        <option value="$PROJECT_DIR$/_test_not_important/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/_tests_not_important/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_25" default="true" project-jdk-name="openjdk-25" project-jdk-type="JavaSDK">
