@@ -78,9 +78,8 @@
     </left>
 
     <center>
-        <StackPane style="-fx-background-color: lightgreen;">
-            <ImageView fx:id="carImage" fitWidth="150" preserveRatio="true">
-            </ImageView>
+        <StackPane fx:id="mapaPane" style="-fx-background-color: lightgreen;">
+            <ImageView fx:id="carImage" fitWidth="50" preserveRatio="true"/>
         </StackPane>
     </center>
 

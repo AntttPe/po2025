@@ -1,6 +1,7 @@
 package symulator;
 
-import javafx.collections.FXCollections; // ZMIANA: Importy do listy
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,12 +10,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-public class SymulatorController {
+// Kontroler implementuje Listener, żeby słuchać samochodu
+public class SymulatorController implements Listener {
 
     @FXML private TextField modelField;
     @FXML private TextField nrRejestracyjnyField;
@@ -22,12 +25,12 @@ public class SymulatorController {
     @FXML private TextField biegField;
     @FXML private TextField obrotyField;
     @FXML private TextField sprzegloField;
+
     @FXML private ComboBox<Samochod> carComboBox;
     @FXML private ImageView carImage;
+    @FXML private StackPane mapaPane; // To pole musi mieć fx:id="mapaPane" w FXML
 
     private ObservableList<Samochod> listaSamochodow = FXCollections.observableArrayList();
-
-    // Obiekt logiczny (Backend) - aktualnie wybrany samochód
     private Samochod mojSamochod;
 
     @FXML
@@ -38,73 +41,122 @@ public class SymulatorController {
             if (is != null) carImage.setImage(new Image(is));
         } catch (Exception e) { System.out.println("Brak obrazka"); }
 
-        // ZMIANA: Tworzymy domyślny samochód i dodajemy go do LISTY
+        // Tworzenie pierwszego auta i dodanie do listy
         Samochod domyslny = new Samochod("Porsche", "KR 12345", 1300, 7000);
-        listaSamochodow.add(domyslny);
+        dodajAutoDoListy(domyslny);
 
-        // ZMIANA: Podpinamy listę pod ComboBox
         carComboBox.setItems(listaSamochodow);
 
-        // Wybieramy pierwszy element
-        carComboBox.getSelectionModel().select(0);
-        mojSamochod = domyslny;
+        // --- OBSŁUGA KLIKNIĘCIA W MAPĘ ---
+        mapaPane.setOnMouseClicked(event -> {
+            if (mojSamochod != null) {
+                // Obliczamy współrzędne względem środka panelu
+                double x = event.getX() - (mapaPane.getWidth() / 2);
+                double y = event.getY() - (mapaPane.getHeight() / 2);
 
-        odswiezWidok();
+                // Rozkaz dla auta: jedź tam
+                mojSamochod.jedzDo(new Pozycja(x, y));
+            }
+        });
     }
 
-    // --- Metody obsługi zdarzeń ---
+    // --- METODA Z INTERFEJSU LISTENER ---
+    // Wywoływana automatycznie przez wątek samochodu, gdy zmieni pozycję
+    @Override
+    public void update() {
+        Platform.runLater(() -> {
+            odswiezWidok();
+        });
+    }
 
-    @FXML private void onWlaczClick() { mojSamochod.wlacz(); odswiezWidok(); }
-    @FXML private void onWylaczClick() { mojSamochod.wylacz(); odswiezWidok(); }
-    @FXML private void onZwiekszBiegClick() { mojSamochod.getSkrzynia().zwiekszBieg(); odswiezWidok(); }
-    @FXML private void onZmniejszBiegClick() { mojSamochod.getSkrzynia().zmniejszBieg(); odswiezWidok(); }
-    @FXML private void onDodajGazuClick() { mojSamochod.getSilnik().zwiekszObroty(500); odswiezWidok(); }
-    @FXML private void onUjmijGazuClick() { mojSamochod.getSilnik().zmniejszObroty(500); odswiezWidok(); }
-    @FXML private void onWcisnijSprzegloClick() { mojSamochod.getSprzeglo().wcisnij(); odswiezWidok(); }
-    @FXML private void onZwolnijSprzegloClick() { mojSamochod.getSprzeglo().zwolnij(); odswiezWidok(); }
+    private void odswiezWidok() {
+        if (mojSamochod != null) {
+            // Aktualizacja tekstów
+            modelField.setText(mojSamochod.getModel());
+            nrRejestracyjnyField.setText(mojSamochod.getNrRejestracyjny());
+            stanSilnikaField.setText(mojSamochod.getSilnik().getObroty() > 0 ? "Włączony" : "Wyłączony");
+            biegField.setText(String.valueOf(mojSamochod.getSkrzynia().getAktBieg()));
+            obrotyField.setText(String.valueOf(mojSamochod.getSilnik().getObroty()));
+            sprzegloField.setText(mojSamochod.getSprzeglo().czyWcisniete() ? "Wciśnięte" : "Zwolnione");
 
-    // ZMIANA: Obsługa wyboru z listy
+            // Aktualizacja pozycji obrazka na ekranie
+            carImage.setTranslateX(mojSamochod.getAktPozycja().getX());
+            carImage.setTranslateY(mojSamochod.getAktPozycja().getY());
+        }
+    }
+
+    // --- Metody przycisków ---
+    @FXML private void onWlaczClick() { mojSamochod.wlacz(); }
+    @FXML private void onWylaczClick() { mojSamochod.wylacz(); }
+
+    @FXML private void onZwiekszBiegClick() {
+        mojSamochod.getSkrzynia().zwiekszBieg();
+        mojSamochod.notifyListeners(); // Wymuszamy odświeżenie
+    }
+
+    @FXML private void onDodajGazuClick() {
+        mojSamochod.getSilnik().zwiekszObroty(1000);
+        mojSamochod.notifyListeners();
+    }
+
+    @FXML private void onWcisnijSprzegloClick() {
+        mojSamochod.getSprzeglo().wcisnij();
+        mojSamochod.notifyListeners();
+    }
+
+    // Wybór auta z listy
     @FXML
     private void onCarSelect() {
         Samochod wybrany = carComboBox.getSelectionModel().getSelectedItem();
         if (wybrany != null) {
-            mojSamochod = wybrany; // Podmieniamy auto na to wybrane z listy
+            if (mojSamochod != null) mojSamochod.removeListener(this); // Odepnij stare auto
+            mojSamochod = wybrany;
+            mojSamochod.addListener(this); // Podepnij nowe auto
             odswiezWidok();
         }
     }
 
+    // Dodawanie auta (wywoływane przez drugie okno)
+    public void dodajAutoDoListy(Samochod noweAuto) {
+        listaSamochodow.add(noweAuto);
+        carComboBox.getSelectionModel().select(noweAuto);
+    }
 
+    // Otwieranie okna dodawania
     @FXML
     private void onDodajNowyClick() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/DodajSamochod.fxml"));
         Scene scene = new Scene(loader.load());
-
-        // Przekazujemy referencję do 'this' (MainController) do nowego okna
         DodajSamochodController controller = loader.getController();
         controller.setMainController(this);
-
         Stage stage = new Stage();
         stage.setTitle("Dodaj nowy samochód");
         stage.setScene(scene);
         stage.show();
     }
 
-    public void dodajAutoDoListy(Samochod noweAuto) {
-        listaSamochodow.add(noweAuto);
-        carComboBox.getSelectionModel().select(noweAuto); // Automatycznie wybierz nowe auto
-        mojSamochod = noweAuto;
-        odswiezWidok();
+    @FXML
+    private void onZmniejszBiegClick() {
+        if (mojSamochod != null) {
+            mojSamochod.getSkrzynia().zmniejszBieg();
+            // Jeśli skrzynia nie ma automatycznego powiadamiania, odświeżamy ręcznie:
+            mojSamochod.notifyListeners();
+        }
     }
 
-    private void odswiezWidok() {
+    @FXML
+    private void onUjmijGazuClick() {
         if (mojSamochod != null) {
-            modelField.setText(mojSamochod.getModel());
-            nrRejestracyjnyField.setText(mojSamochod.getNrRejestracyjny());
+            mojSamochod.getSilnik().zmniejszObroty(1000);
+            mojSamochod.notifyListeners();
+        }
+    }
 
-            stanSilnikaField.setText(mojSamochod.getSilnik().getObroty() > 0 ? "Włączony" : "Wyłączony");
-            biegField.setText(String.valueOf(mojSamochod.getSkrzynia().getAktBieg()));
-            obrotyField.setText(String.valueOf(mojSamochod.getSilnik().getObroty()));
-            sprzegloField.setText(mojSamochod.getSprzeglo().czyWcisniete() ? "Wciśnięte" : "Zwolnione");
+    @FXML
+    private void onZwolnijSprzegloClick() {
+        if (mojSamochod != null) {
+            mojSamochod.getSprzeglo().zwolnij();
+            mojSamochod.notifyListeners();
         }
     }
 }
