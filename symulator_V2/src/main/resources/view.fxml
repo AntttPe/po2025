@@ -20,7 +20,7 @@
                 <Label text="Samochód: "/>
                 <ComboBox fx:id="carComboBox" prefWidth="150.0" onAction="#onCarSelect"/>
                 <Button text="Dodaj nowy" onAction="#onDodajNowyClick"/>
-                <Button text="Usuń"/>
+                <Button text="Usuń" onAction="#onUsunClick"/>
             </ToolBar>
         </VBox>
     </top>

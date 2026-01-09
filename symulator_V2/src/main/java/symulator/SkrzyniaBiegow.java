@@ -3,7 +3,7 @@ package symulator;
 public class SkrzyniaBiegow extends Komponent {
     private int aktualnyBieg;
     private int iloscBiegow;
-    private Sprzeglo sprzeglo; // Zależność z diagramu
+    private Sprzeglo sprzeglo;
 
     public SkrzyniaBiegow(String nazwa, double waga, double cena, int iloscBiegow, Sprzeglo sprzeglo) {
         super(nazwa, waga, cena);

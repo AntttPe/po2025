@@ -6,11 +6,9 @@
 <VBox spacing="10" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="symulator.DodajSamochodController"
-      prefWidth="300" prefHeight="250">
-
-    <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-    </padding>
+      prefWidth="300" prefHeight="350"> <padding>
+    <Insets top="20" right="20" bottom="20" left="20"/>
+</padding>
 
     <Label text="Model:"/>
     <TextField fx:id="modelTextField"/>
@@ -21,8 +19,11 @@
     <Label text="Waga (kg):"/>
     <TextField fx:id="weightTextField"/>
 
-    <Label text="Max Obroty:"/>
+    <Label text="Max Obroty/Prędkość:"/>
     <TextField fx:id="speedTextField"/>
+
+    <Label text="Liczba biegów:"/>
+    <ComboBox fx:id="gearBoxComboBox" prefWidth="260.0"/>
 
     <HBox spacing="10" alignment="CENTER_RIGHT">
         <Button fx:id="cancelButton" text="Anuluj" onAction="#onCancelButton"/>

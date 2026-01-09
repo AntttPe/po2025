@@ -19,10 +19,14 @@ public class Samochod extends Thread { // 1. Dziedziczenie po Thread
 
     // Lista słuchaczy (GUI)
     private List<Listener> listeners = new ArrayList<>();
-    private boolean active = true; // Flaga do działania wątku
 
-    // Konstruktor
-    public Samochod(String model, String nrRejestracyjny, double waga, int predkoscMax) {
+    // Zmieniono na volatile dla bezpieczeństwa wątkowego przy zatrzymywaniu
+    private volatile boolean active = true;
+
+    // --- KONSTRUKTORY ---
+
+    // 1. Główny konstruktor (z liczbą biegów)
+    public Samochod(String model, String nrRejestracyjny, double waga, int predkoscMax, int iloscBiegow) {
         this.model = model;
         this.nrRejestracyjny = nrRejestracyjny;
         this.waga = waga;
@@ -33,20 +37,32 @@ public class Samochod extends Thread { // 1. Dziedziczenie po Thread
 
         // Tworzenie podzespołów
         this.sprzeglo = new Sprzeglo("Sprzęgło", waga * 0.1, 500);
-        this.skrzynia = new SkrzyniaBiegow("Skrzynia", waga * 0.2, 2000, 5, this.sprzeglo);
+        // Przekazujemy iloscBiegow do skrzyni zamiast sztywnej 5
+        this.skrzynia = new SkrzyniaBiegow("Skrzynia", waga * 0.2, 2000, iloscBiegow, this.sprzeglo);
         this.silnik = new Silnik("Silnik", waga * 0.3, 5000, predkoscMax);
-        
 
-        // 2. Uruchomienie wątku na końcu konstruktora
+        // Uruchomienie wątku na końcu konstruktora
         start();
     }
 
-    // Konstruktor uproszczony (dla kompatybilności)
+    // 2. Konstruktor kompatybilny (domyślnie 5 biegów) - używany np. w testach lub kodzie legacy
+    public Samochod(String model, String nrRejestracyjny, double waga, int predkoscMax) {
+        this(model, nrRejestracyjny, waga, predkoscMax, 5);
+    }
+
+    // 3. Konstruktor uproszczony
     public Samochod(String model, String nrRejestracyjny) {
-        this(model, nrRejestracyjny, 1000, 200);
+        this(model, nrRejestracyjny, 1000, 200, 5);
     }
 
     // --- LOGIKA RUCHU (WĄTEK) ---
+
+    // Metoda do bezpiecznego zatrzymywania wątku (np. przy usuwaniu auta)
+    public void usun() {
+        this.active = false;
+        this.interrupt(); // Przerywamy sleep, jeśli wątek śpi
+    }
+
     public void jedzDo(Pozycja cel) {
         this.cel = cel;
         System.out.println("Jadę do: " + cel.getPozycja());
@@ -79,7 +95,8 @@ public class Samochod extends Thread { // 1. Dziedziczenie po Thread
                 }
                 Thread.sleep(50); // Odświeżanie co 50ms (płynny ruch)
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                // Wątek został przerwany (np. przez metodę usun()), kończymy pętlę
+                active = false;
             }
         }
     }
@@ -89,12 +106,14 @@ public class Samochod extends Thread { // 1. Dziedziczenie po Thread
     public void removeListener(Listener listener) { listeners.remove(listener); }
 
     public void notifyListeners() {
-        for (Listener listener : listeners) {
+        // Kopia listy, aby uniknąć błędów współbieżności przy modyfikacji listy w trakcie powiadamiania
+        List<Listener> currentListeners = new ArrayList<>(listeners);
+        for (Listener listener : currentListeners) {
             listener.update();
         }
     }
 
-    // Metody sterujące (z powiadamianiem)
+    // Metody sterujące
     public void wlacz() { silnik.uruchom(); notifyListeners(); }
     public void wylacz() { silnik.zatrzymaj(); notifyListeners(); }
 
